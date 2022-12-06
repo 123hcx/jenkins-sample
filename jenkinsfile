@@ -1,0 +1,25 @@
+node {
+  stage('Parallel Stage') {
+    parallel 'ok' : {
+      def remote = [:]
+      remote.name = "test01"
+      remote.host = "192.168.13.99"
+      remote.allowAnyHosts = true
+      remote.user = 'Administrator'
+      remote.password = '111111'
+      stage("test01-build") {
+        sshCommand remote: remote, command: "C:/jenkins/ppp.bat"
+      }
+    },'okk' : {
+    def remote = [:]
+    remote.name = "test02"
+    remote.host = "192.168.10.169"
+    remote.allowAnyHosts = true
+    remote.user = 'HH'
+    remote.password = '111111'
+    stage("test02-build") {
+      sshCommand remote: remote, command: "C:/jenkins/qqq.bat"
+    }
+  }
+  }
+}
